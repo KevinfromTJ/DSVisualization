@@ -1,0 +1,223 @@
+﻿<Window x:Class="WpfDS1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="图的邻接链表-最小生成树-最短路径" Height="600" Width="1200">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <!--定义Grid的行，定义2行-->
+                <!--第一行放Toolbar-->
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <!--定义Grid的列，定义1列-->
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ToolBarTray Height="40" VerticalAlignment="Top" Grid.Row="0">
+                <ToolBar>
+                    <Menu Height="40"  Background="Azure"  VerticalAlignment="Center" FontFamily="宋体" FontSize="20">
+                        <MenuItem Header="开始" Height="40" TextBlock.TextAlignment="Center"  >
+                            <MenuItem Header="重置" Click="BtnMenuReset_Click"/>
+                            <MenuItem Header="退出" Click="BtnMenuExit_Click"/>
+                            
+                        </MenuItem>
+                        <MenuItem Header="帮助" Height="40" TextBlock.TextAlignment="Center"  >
+                            <MenuItem Header="使用说明" Click="BtnMenuInstrution_Click"/>
+                            <MenuItem Header="作者与程序信息" Click="BtnMenuProgramInfo_Click"/>
+
+                        </MenuItem>
+                    </Menu>
+                   
+                    <!--<Button  Name="NewFile">
+                        开始
+                    </Button>
+                    <Button  Name="OpenFile">
+                        <Image Source="C:\Users\Kevin\Desktop\41dfddbaf8104e8389107d767b03e6cd.gif" Width="32" Height="32"></Image>
+                    </Button>
+                    <Button  Name="SaveFile">
+                        <Image Source="C:\Users\Kevin\Desktop\41dfddbaf8104e8389107d767b03e6cd.gif" Width="32" Height="32"></Image>
+                    </Button>-->
+                </ToolBar>
+            </ToolBarTray>
+            <!--<Border>
+                
+            </Border>-->
+            <Grid  Grid.Column="0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <!--定义Grid的行，定义1行-->
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <!--定义Grid的列，定义2列-->
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+
+                <Border Grid.Row="0" Grid.Column="0" Width="90" Background="White" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3"  >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!--定义Grid的行，定义5行-->
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <!--<RowDefinition Height="*"></RowDefinition>-->
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" >
+                            <Button Click="BtnDataInit_Click">
+                                <TextBlock Text="图数据输入"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Button Click="BtnDrawAdjList_Click">
+                                <TextBlock Text="邻接链表"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Button Click="BtnDrawMinSpanTree_Click">
+                                <TextBlock Text="最小生成树(动态演示)"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Button Click="BtnSinSourceShortestPath_Click">
+                                <TextBlock Text="单源最短路径"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Button Click="BtnAllShortestPath_Click">
+                                <TextBlock Text="任意最短路径"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <!--<TreeView >
+
+                    </TreeView>-->
+                </Border>
+
+                <!--中心分界+空间分隔-->
+                <!--<GridSplitter Width="5" ></GridSplitter>-->
+
+                <!--展示用的画布-->
+                <Border Name="CanvasBoard" Grid.Row="0" Grid.Column="1" Width="auto" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Visibility="Collapsed">
+                    <ScrollViewer Height="auto" 
+                HorizontalScrollBarVisibility="Visible"
+                  VerticalScrollBarVisibility="Visible"
+                                  >
+                        <StackPanel Height="3400" Width="1200" >
+                            <Canvas Name="MainCanvas"  Width="1395" Height="3595" PreviewMouseDown="SelectElement_MouseDown"  >
+                                <!--<Ellipse Panel.ZIndex="2" Fill="Gainsboro" Canvas.Left="825" Canvas.Top="825" Width="200" Height="200" />
+                                <Rectangle Panel.ZIndex="3" Fill="LightBlue" Canvas.Left="25" Canvas.Top="25" Width="50" Height="50" />
+                                <Rectangle Panel.ZIndex="2" Fill="LightCoral" Canvas.Left="50" Canvas.Top="50" Width="50" Height="50" />
+                                <Rectangle Panel.ZIndex="4" Fill="LightCyan" Canvas.Left="75" Canvas.Top="75" Width="50" Height="50" />-->
+                            </Canvas>
+                        </StackPanel>
+                    </ScrollViewer>
+
+
+
+                    <!--<Canvas>
+                        <Ellipse>
+                            
+                        </Ellipse>
+                    </Canvas>-->
+                    <!--<Grid>
+
+                    </Grid>-->
+                </Border>
+                <!--数据输入部分-->
+                <Border Name="DataInputBoard" Grid.Row="0" Grid.Column="1" Width="auto" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Visibility="Visible">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!--定义输入区域的行，定义5行，顶部和尾部没用-->
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <!--定义输入区域的行，定义5行，顶部和尾部没用-->
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 4 10">
+                            <DockPanel >
+                                <TextBlock
+                                Text="请输入图中结点个数（编号从1开始）"               
+                                TextWrapping="Wrap"
+                                TextAlignment="Left"
+                                DockPanel.Dock="Top"/>
+                                <TextBox  Name="VexNumBox" Text="{Binding VexNum,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                    
+
+                                </TextBox>
+                            </DockPanel>
+
+
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="1" Margin="0 0 4 10">
+                            <DockPanel >
+                                <TextBlock 
+                                Text="请输入边（弧）的条数（注意重边只计入顺序第一条）"               
+                                TextWrapping="Wrap"
+                                TextAlignment="Left"
+                                DockPanel.Dock="Top"/>
+                                <TextBox  Name="ArcNumBox" Text="{Binding ArcNum,UpdateSourceTrigger= PropertyChanged,Mode=TwoWay}">
+
+
+                                </TextBox>
+                            </DockPanel>
+
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.Column="1" Margin="0 0 4 10">
+                            <DockPanel >
+                                <TextBlock 
+                                Text="请在每行输入【一条】边的信息，格式为a b c，即在编号为a的点到编号为b的点间添加权值为c【c>=0】的边"               
+                                TextWrapping="Wrap"
+                                TextAlignment="Left"
+                                DockPanel.Dock="Top"/>
+
+                                <TextBox  Name="ArcGroupBox" Text="{Binding ArcGroup,UpdateSourceTrigger= PropertyChanged,Mode=TwoWay}"
+                                    AcceptsReturn="True"
+                                    VerticalScrollBarVisibility="Visible">
+
+
+                                </TextBox>
+                            </DockPanel>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+
+
+            </Grid>
+            <Grid Grid.Row="2">
+                <StatusBar >
+                    <TextBlock Name="BottomHintBlock" Text="{Binding BottomHint,UpdateSourceTrigger= PropertyChanged,Mode=TwoWay}" />
+                </StatusBar>
+            </Grid>
+        </Grid>
+        
+
+    </Grid>
+</Window>

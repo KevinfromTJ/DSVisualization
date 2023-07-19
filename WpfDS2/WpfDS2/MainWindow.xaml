@@ -1,0 +1,426 @@
+﻿<Window x:Class="WpfDS2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfDS2"
+        mc:Ignorable="d"
+        Title="自走车拆卸组装教学系统" Height="640" Width="1200">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <!--定义Grid的行，定义2行-->
+                <!--第一行放Toolbar-->
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <!--定义Grid的列，定义1列-->
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ToolBarTray Height="40" VerticalAlignment="Top" Grid.Row="0">
+                <ToolBar>
+                    <Menu Height="40"  Background="Azure"  VerticalAlignment="Center" FontFamily="宋体" FontSize="20">
+                        <MenuItem Header="开始" Height="40" TextBlock.TextAlignment="Center"  >
+                            <MenuItem Header="重置为默认装配路径" Click="BtnMenuReset_Click"/>
+                            <MenuItem Header="退出" Click="BtnMenuExit_Click"/>
+
+                        </MenuItem>
+                        <MenuItem Header="帮助" Height="40" TextBlock.TextAlignment="Center"   >
+                            <MenuItem Header="使用说明" Click="BtnMenuInstrution_Click"/>
+                            <MenuItem Header="程序信息" Click="BtnMenuProgramInfo_Click"/>
+
+                        </MenuItem>
+                    </Menu>
+
+                    <!--<Button  Name="NewFile">
+                        开始
+                    </Button>
+                    <Button  Name="OpenFile">
+                        <Image Source="C:\Users\Kevin\Desktop\41dfddbaf8104e8389107d767b03e6cd.gif" Width="32" Height="32"></Image>
+                    </Button>
+                    <Button  Name="SaveFile">
+                        <Image Source="C:\Users\Kevin\Desktop\41dfddbaf8104e8389107d767b03e6cd.gif" Width="32" Height="32"></Image>
+                    </Button>-->
+                </ToolBar>
+            </ToolBarTray>
+            <!--<Border>
+                
+            </Border>-->
+            <Grid  Grid.Column="0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <!--定义Grid的行，定义1行-->
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <!--定义Grid的列，定义2列-->
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+
+                <Border Grid.Row="0" Grid.Column="0" Width="80"  >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!--定义Grid的行，定义5行-->
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <!--<RowDefinition Height="*"></RowDefinition>-->
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" >
+                            <!--<Button Click="BtnDataInit_Click">
+                                <TextBlock Text="图数据输入"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>-->
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Button Click="BtnDataInit_Click" >
+                                <TextBlock Text="装配路径定义"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Button Click="BtnShowEquipRoute_Click">
+                                <TextBlock Text="装配关系依赖图"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="5">
+                            <Button Click="BtnDynamicEquip_Click" >
+                                <TextBlock Text="零件拆卸与装配"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <!--<Button Click="BtnAllShortestPath_Click">
+                                <TextBlock Text="任意最短路径"
+                                TextWrapping="Wrap"
+                                TextAlignment="Center"/>
+                            </Button>-->
+                        </Grid>
+                    </Grid>
+                    <!--<TreeView >
+
+                    </TreeView>-->
+                </Border>
+
+                <!--中心分界+空间分隔-->
+                <!--<GridSplitter Width="5" ></GridSplitter>-->
+
+                <!--展示用的画布-->
+                <Border Name="CanvasBoard" Grid.Row="0" Grid.Column="1" Width="auto"  Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Visibility="Collapsed">
+                    <ScrollViewer Height="auto" 
+                HorizontalScrollBarVisibility="Visible"
+                  VerticalScrollBarVisibility="Visible">
+                        <StackPanel Height="2400" Width="1200" >
+                            
+                            
+                            <Canvas Name="MainCanvas"  Width="2395" Height="1595"  >
+                                
+                                
+                                
+                                <!--<Ellipse Panel.ZIndex="2" Fill="Gainsboro" Canvas.Left="825" Canvas.Top="825" Width="200" Height="200" />
+                                <Rectangle Panel.ZIndex="3" Fill="LightBlue" Canvas.Left="25" Canvas.Top="25" Width="50" Height="50" />
+                                <Rectangle Panel.ZIndex="2" Fill="LightCoral" Canvas.Left="50" Canvas.Top="50" Width="50" Height="50" />
+                                <Rectangle Panel.ZIndex="4" Fill="LightCyan" Canvas.Left="75" Canvas.Top="75" Width="50" Height="50" />-->
+                            </Canvas>
+                        </StackPanel>
+                    </ScrollViewer>
+
+
+
+                    <!--<Canvas>
+                        <Ellipse>
+                            
+                        </Ellipse>
+                    </Canvas>-->
+                    <!--<Grid>
+
+                    </Grid>-->
+                </Border>
+
+                
+                <!--数据输入部分-->
+                <Border Name="DataInputBoard" Grid.Row="0" Grid.Column="1" Width="auto" Background="White"  BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Visibility="Visible">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <!--定义两列，左边是输入，右边是零件展示-->
+                            <ColumnDefinition Name="WidthLeft" Width="300" ></ColumnDefinition>
+                            <ColumnDefinition Name="WidthRight" Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--零件依赖输入-->
+                        <Grid Grid.Column="0"  Name="InputGrid">
+                            <Grid.RowDefinitions>
+                                <!--定义输入区域的行，定义5行，顶部和尾部没用-->
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="200"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <!--定义输入区域的行，定义5行，顶部和尾部没用-->
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!--默认装配次序下完整的车辆预览图-->
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <TextBlock TextAlignment="Center" Name="tb_bigImage">
+                                    默认装配次序下完整的车辆预览图（仅供参考）
+                                </TextBlock>
+
+
+
+
+
+
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="1" Margin="0 0 4 10" Visibility="Visible">
+                                <Image Name="ProcedureIamge" Source="/final/car_multiple_9.png" />
+
+
+
+                            
+                                
+
+                            </Grid>
+                           
+
+                            <Grid Grid.Row="4" Grid.Column="1" Margin="0 0 4 10">
+                                <DockPanel Name="dp_static" Visibility="Visible">
+                                    <StackPanel  Width="150" DockPanel.Dock="Left">
+                                        <TextBlock
+                                            Text="请在每行输入【一组】【直接装配依赖】，格式为a b&#x0a;&#x0a;即编号为b的零件紧接着编号为a的零件安装后装配&#x0a;&#x0a;"               
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                            />
+                                        <TextBlock Width="150"
+                                            Text="【注意】一组相同的零件应该具有相同的前置依赖，也应该同时作为其他零件的前置依赖（如车轮）"               
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                                   Foreground="Red"
+                                            />
+                                    </StackPanel>
+                                    
+
+                                    <TextBox FontSize="14" Name="ArcGroupBox" Text="{Binding ArcGroup,UpdateSourceTrigger= PropertyChanged,Mode=TwoWay}"
+                                    AcceptsReturn="True"
+                                    VerticalScrollBarVisibility="Visible"
+                                          DockPanel.Dock="Right"   >
+
+
+                                    </TextBox>
+                                </DockPanel>
+
+                                <DockPanel Name="dp_dynamic" Visibility="Collapsed">
+                                    <TextBlock Name="dp_dynamic_tb_cur" Foreground="OrangeRed" TextAlignment="Center" FontSize="22" DockPanel.Dock="Top">
+                                        点击右侧零件对应的图片区域
+                                    </TextBlock>
+                                    <TextBlock Name="dp_dynamic_tb_next" Foreground="Orange" TextAlignment="Center" FontSize="22" DockPanel.Dock="Top" >
+                                        确认需要拆卸维修的零件
+                                    </TextBlock>
+                                    <TextBox Name="dp_dynamic_tbx_route" FontSize="18"
+                                        AcceptsReturn="True" IsReadOnly="True"
+                                    
+                                    HorizontalScrollBarVisibility="Visible">
+                   
+                                    </TextBox>
+                                </DockPanel>
+                            </Grid>
+
+                        </Grid>
+                        <!--零件展示-->
+                        <Grid Grid.Column="1" Name="EqiupShow" Margin="10 10 10 10" PreviewMouseDown="SelectElement_MouseDown">
+                            <Grid.RowDefinitions>
+                                <!--定义输入区域的行，定义5行，顶部和尾部没用-->
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <!--定义输入区域的行，定义5行，顶部和尾部没用-->
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                         
+                            </Grid.ColumnDefinitions>
+
+                            <!--文字定义-->
+                            <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Center" Name="equipName_1">1 车上部骨架</TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Center" Name="equipName_2">2 车底盘骨架</TextBlock>
+                            <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Center" Name="equipName_3">3 扩音器</TextBlock>
+                            <TextBlock Grid.Row="7" Grid.Column="0" TextAlignment="Center" Name="equipName_4">4 某种电子装置</TextBlock>
+                            <TextBlock Grid.Row="9" Grid.Column="0" TextAlignment="Center" Name="equipName_5">5 发动机冷却器</TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Center" Name="equipName_6">6 减震弹簧</TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="1" TextAlignment="Center" Name="equipName_7">7 破岩钻头</TextBlock>
+                            <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Center" Name="equipName_8">8 防撞保险杠</TextBlock>
+                            <TextBlock Grid.Row="7" Grid.Column="1" TextAlignment="Center" Name="equipName_9">9 额外电池</TextBlock>
+                            <TextBlock Grid.Row="9" Grid.Column="1" TextAlignment="Center" Name="equipName_10">10 浓缩液</TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="2" TextAlignment="Center" Name="equipName_11">11 氮气罐</TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="2" TextAlignment="Center" Name="equipName_12">12 高级控制芯片1</TextBlock>
+                            <TextBlock Grid.Row="5" Grid.Column="2" TextAlignment="Center" Name="equipName_13">13 高级控制芯片2</TextBlock>
+                            <TextBlock Grid.Row="7" Grid.Column="2" TextAlignment="Center" Name="equipName_14">14 高级控制芯片3</TextBlock>
+                            <TextBlock Grid.Row="9" Grid.Column="2" TextAlignment="Center" Name="equipName_15">15 中级速控芯片1</TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="3" TextAlignment="Center" Name="equipName_16">16 中级冷控芯片</TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="3" TextAlignment="Center" Name="equipName_17">17 低级冷控芯片1</TextBlock>
+                            <TextBlock Grid.Row="5" Grid.Column="3" TextAlignment="Center" Name="equipName_18">18 低级冷控芯片2</TextBlock>
+                            <TextBlock Grid.Row="7" Grid.Column="3" TextAlignment="Center" Name="equipName_19">19 低级速控芯片1</TextBlock>
+                            <TextBlock Grid.Row="9" Grid.Column="3" TextAlignment="Center" Name="equipName_20">20 低级速控芯片2</TextBlock>
+
+                            <TextBlock Grid.Row="1" Grid.Column="4" TextAlignment="Center" Name="equipName_21">21 车底盘（外部）</TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="4" TextAlignment="Center" Name="equipName_22">22 车上部（外部）</TextBlock>
+                            <TextBlock Grid.Row="5" Grid.Column="4" TextAlignment="Center" Name="equipName_23">23 轮子1</TextBlock>
+                            <TextBlock Grid.Row="7" Grid.Column="4" TextAlignment="Center" Name="equipName_24">24 轮子2</TextBlock>
+                            <TextBlock Grid.Row="9" Grid.Column="4" TextAlignment="Center" Name="equipName_25">25 轮子3</TextBlock>
+
+                            <Border  Grid.Row="0" Grid.Column="0"  Name="equipBorder_1">
+                                <Image Source="/final/carFrontBasic_single_1.png" />
+
+                            </Border>
+                            <Border  Grid.Row="2" Grid.Column="0" Name="equipBorder_2">
+                                <Image Source="/final/carFrontBasicPlus_single_2.png" />
+
+                            </Border>
+                            <Border  Grid.Row="4" Grid.Column="0" Name="equipBorder_3">
+                                <Image Source="/final/carEquip_single_3.png" />
+
+                            </Border>
+                            <Border  Grid.Row="6" Grid.Column="0" Name="equipBorder_4">
+                                <Image Source="/final/carEquip_single_4.png" />
+
+                            </Border>
+                            <Border  Grid.Row="8" Grid.Column="0" Name="equipBorder_5">
+                                <Image Source="/final/carEquip_single_5.png" />
+
+                            </Border>
+
+                            <Border  Grid.Row="0" Grid.Column="1" Name="equipBorder_6">
+                                <Image Source="/final/carEquip_single_6.png" />
+
+                            </Border>
+                            <Border  Grid.Row="2" Grid.Column="1" Name="equipBorder_7">
+                                <Image Source="/final/carEquip_single_7.png" />
+
+                            </Border>
+                            <Border  Grid.Row="4" Grid.Column="1" Name="equipBorder_8">
+                                <Image Source="/final/carEquip_single_8.png" />
+
+                            </Border>
+                            <Border  Grid.Row="6" Grid.Column="1" Name="equipBorder_9">
+                                <Image Source="/final/carEquip_single_9.png" />
+
+                            </Border>
+                            <Border  Grid.Row="8" Grid.Column="1" Name="equipBorder_10">
+                                <Image Source="/final/carEquip_single_10.png" />
+
+                            </Border>
+
+                            <Border  Grid.Row="0" Grid.Column="2" Name="equipBorder_11">
+                                <Image Source="/final/carEquip_single_11.png" />
+
+                            </Border>
+                            <Border  Grid.Row="2" Grid.Column="2" Name="equipBorder_12">
+                                <Image Source="/final/carEquip_single_12.png" />
+
+                            </Border>
+                            <Border  Grid.Row="4" Grid.Column="2" Name="equipBorder_13">
+                                <Image Source="/final/carEquip_single_13.png" />
+
+                            </Border>
+                            <Border  Grid.Row="6" Grid.Column="2" Name="equipBorder_14">
+                                <Image Source="/final/carEquip_single_14.png" />
+
+                            </Border>
+                            <Border  Grid.Row="8" Grid.Column="2" Name="equipBorder_15">
+                                <Image Source="/final/carEquip_single_15.png" />
+
+                            </Border>
+
+                            <Border  Grid.Row="0" Grid.Column="3" Name="equipBorder_16">
+                                <Image Source="/final/carEquip_single_16.png" />
+
+                            </Border>
+                            <Border  Grid.Row="2" Grid.Column="3" Name="equipBorder_17">
+                                <Image Source="/final/carEquip_single_17.png" />
+
+                            </Border>
+                            <Border  Grid.Row="4" Grid.Column="3" Name="equipBorder_18">
+                                <Image Source="/final/carEquip_single_18.png" />
+
+                            </Border>
+                            <Border  Grid.Row="6" Grid.Column="3" Name="equipBorder_19">
+                                <Image Source="/final/carEquip_single_19.png" />
+
+                            </Border>
+                            <Border  Grid.Row="8" Grid.Column="3" Name="equipBorder_20">
+                                <Image Source="/final/carEquip_single_20.png" />
+
+                            </Border>
+
+                            <Border  Grid.Row="0" Grid.Column="4" Name="equipBorder_21">
+                                <Image Source="/final/carBasicBottom_single_21.png" />
+
+                            </Border>
+                            <Border  Grid.Row="2" Grid.Column="4" Name="equipBorder_22">
+                                <Image Source="/final/carBasicTop_single_22.png" />
+
+                            </Border>
+                            <Border  Grid.Row="4" Grid.Column="4"  Name="equipBorder_23">
+                                <Image Source="/final/carWheel_single_23.png" />
+
+                            </Border>
+                            <Border  Grid.Row="6" Grid.Column="4"  Name="equipBorder_24">
+                                <Image Source="/final/carWheel_single_24.png" />
+
+                            </Border>
+                            <Border  Grid.Row="8" Grid.Column="4"  Name="equipBorder_25">
+                                <Image Source="/final/carWheel_single_25.png" />
+
+                            </Border>
+
+                            
+
+
+
+                        </Grid>
+                    </Grid>
+                    
+                </Border>
+
+
+            </Grid>
+            <Grid Grid.Row="2">
+                <StatusBar >
+                    <TextBlock Name="BottomHintBlock" Text="{Binding BottomHint,UpdateSourceTrigger= PropertyChanged,Mode=TwoWay}" />
+                </StatusBar>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Window>
